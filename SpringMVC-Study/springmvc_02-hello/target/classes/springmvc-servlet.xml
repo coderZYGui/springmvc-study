@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--配置1:处理器映射器
+        目的: 选择哪一个处理器(Controller)来处理当前请求
+        BeanNameUrlHandlerMapping:
+        根据请求的URL去寻找对应的bean, 根据bean的id/name
+
+        /hello   去匹配id或name为/hell的bean
+    -->
+    <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+
+    <!--配置2:处理器适配器
+        目的: 调用处理器(Controller)的处理请求的方法
+            1: 所有的适配器都实现了HandlerAdapter接口
+            2: 处理器(Controller)类必须实现org.springframework.web.servlet.mvc.Controller接口
+    -->
+    <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
+
+    <!--配置3:视图解析器
+        目的: 处理视图
+    -->
+    <!--视图解析器:DispatcherServlet给他的ModelAndView-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="InternalResourceViewResolver">
+        <!--前缀-->
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <!--后缀-->
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--配置4:处理器
+        在SpringMVC中Handler(框架)和Controller(自己)是同一个东西
+    -->
+    <!--通过处理器映射器在url中寻找id为hello的jsp-->
+    <bean id="/hello" class="com.sunny.hello.HelloController"/>
+    <bean id="/hello2" class="com.sunny.hello.HelloController2"/>
+
+</beans>

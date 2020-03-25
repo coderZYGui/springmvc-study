@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <import resource="classpath:applicationContext.xml"/>
+
+    <!-- 自动扫描包,让指定包下的注解生效,由IoC容器统一管理-->
+    <context:component-scan base-package="com.sunny"/>
+
+    <!-- 让Spring MVC不处理静态资源 -->
+    <mvc:default-servlet-handler />
+
+    <!-- mvc注解解析器-->
+    <mvc:annotation-driven/>
+
+    <!--视图解析器:DispatcherServlet给他的ModelAndView-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="InternalResourceViewResolver">
+        <!--前缀-->
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <!--后缀-->
+        <property name="suffix" value=".jsp"/>
+    </bean>
+</beans>
